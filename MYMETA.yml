@@ -20,4 +20,4 @@ no_index:
     - inc
 requires:
   Any::Moose: 0.18
-version: 0.04
+version: 0.05

@@ -7,11 +7,16 @@ use List::Util 'sum';
 
 extends 'Sub::Rate';
 
-before generate => sub {
-    my ($self) = @_;
+has '+max_rate' => 'default' => 0;
 
-    my $max_rate = sum map { $_->[0] } @{ $self->_func };
-    $self->max_rate($max_rate);
+before add => sub {
+    my ($self, $rate) = @_;
+    $self->max_rate($self->max_rate + $rate);
+};
+
+after clear => sub {
+    my ($self) = @_;
+    $self->max_rate(0);
 };
 
 __PACKAGE__->meta->make_immutable;
